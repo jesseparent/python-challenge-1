@@ -128,12 +128,14 @@ while place_order:
 
                 # 4. Check if the menu selection is in the menu items
                 if menu_selection in menu_items.keys():
-
                     # Store the item name as a variable
                     item_name = menu_items[menu_selection]["Item name"]
+
+                    # Store the item price as a variable
                     price = menu_items[menu_selection]["Price"]
 
                     # Ask the customer for the quantity of the menu item
+                    # Let them know that the quantity will default to 1 if their input is invalid
                     quantity = input(f"How many of the item '{item_name}' would you like?\n" \
                                      "(Enter whole number. Default will be 1 if invalid or missing.): ")
 
@@ -152,9 +154,6 @@ while place_order:
                         "Quantity": quantity
                     })
 
-                   
-
-
                 # Tell the customer they didn't select a menu option
                 else:
                     print(f"{menu_selection} was not a menu option.")
@@ -171,31 +170,31 @@ while place_order:
 
     while True:
         # Ask the customer if they would like to order anything else
-        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ").lower()
+        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
 
         # 5. Check the customer's input
-        if keep_ordering == "y":
-            # Keep ordering
-            # NOT TO GRADER: this next line is unnecessary, but the instructions explicitly state:
-            # "y: Set the place_order variable to True and break from the continuous while loop.""
-            place_order = True
+        match keep_ordering.lower():
+            case "y":
+                # Keep ordering
+                # NOT TO GRADER: this next line is unnecessary, but the instructions explicitly state:
+                # "y: Set the place_order variable to True and break from the continuous while loop."
+                place_order = True
 
-            break
-        elif keep_ordering == "n":
-            # Exit the keep ordering question loop
-            place_order = False
-            # Complete the order
+                break
+            case "n":
+                # Exit the keep ordering question loop
+                place_order = False
+                # Complete the order
 
-            # Since the customer decided to stop ordering, thank them for
-            # their order
+                # Since the customer decided to stop ordering, thank them for
+                # their order
+                print("\nThank you for your order")
+                # Exit the keep ordering question loop
+                break            
 
-            # Exit the keep ordering question loop
-            break
-           
-
-        # Tell the customer to try again
-        else:
-            print("That is not a valid input. Try again.")
+            # Tell the customer to try again
+            case _:
+                print("That is not a valid input. Try again.")
 
 
 # Print out the customer's order
@@ -228,3 +227,12 @@ for item in order:
 # 11. Calculate the cost of the order using list comprehension
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
+total_price = sum([item["Price"] * item["Quantity"] for item in order])
+
+total_price_string = f"TOTAL PRICE: ${total_price:,}"
+total_prices_spaces = " " * (46 - len(total_price_string))
+line = "-" * 46
+
+print(line)
+print(f"{total_prices_spaces}{total_price_string}")
+print(line)
