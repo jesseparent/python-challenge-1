@@ -148,11 +148,18 @@ while place_order:
                         quantity = 1
 
                     # Add the item name, price, and quantity to the order list
-                    order.append({
-                        "Item name": item_name,
-                        "Price": price,
-                        "Quantity": quantity
-                    })
+                    # BONUS: Detect if item is already in the order
+                    item_in_order = next((i for i, d in enumerate(order) if d.get("Item name") == item_name), -1)
+                    if item_in_order >= 0:
+                        # Item already in order so add to the quantity of that item 
+                        order[item_in_order]["Quantity"] += quantity
+                    else:
+                        # Add new item to order
+                        order.append({
+                            "Item name": item_name,
+                            "Price": price,
+                            "Quantity": quantity
+                        })
 
                 # Tell the customer they didn't select a menu option
                 else:
