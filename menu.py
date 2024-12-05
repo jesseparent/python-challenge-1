@@ -118,6 +118,7 @@ while place_order:
                         "Price": value
                     }
                     i += 1
+                    
             # 2. Ask customer to input menu item number
             menu_selection = input("Which item would you like to order? ")
 
@@ -150,6 +151,7 @@ while place_order:
                     # Add the item name, price, and quantity to the order list
                     # BONUS: Detect if item is already in the order
                     item_in_order = next((i for i, d in enumerate(order) if d.get("Item name") == item_name), -1)
+
                     if item_in_order >= 0:
                         # Item already in order so add to the quantity of that item 
                         order[item_in_order]["Quantity"] += quantity
@@ -171,6 +173,7 @@ while place_order:
         else:
             # Tell the customer they didn't select a menu option
             print(f"{menu_category} was not a menu option.")
+
     else:
         # Tell the customer they didn't select a number
         print("You didn't select a number.")
